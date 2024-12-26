@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from .models import CustomUser
 
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
     password = serializers.CharField(required=True, write_only=True)
     class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'password']
+        model = CustomUser
+        fields = ['id', 'username', 'email', 'password', 'role']
         
     def validate(self, data):
         if len(data['password']) < 8:
@@ -19,10 +19,13 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Password must contain at least one uppercase letter')
         if data['password'].isupper():
             raise serializers.ValidationError('Password must contain at least one lowercase letter')
+        if 'role' in data and data['role'] not in ['client', 'admin']:
+            raise serializers.ValidationError('Role must be either client or admin')
+        if CustomUser.objects.filter(email=data['email']).exists():
+            raise serializers.ValidationError('A user with that email already exists.')
         return data
 
-    def save(self):
-        user = User.objects.create_user(username=self.validated_data['username'], email=self.validated_data['email'])
-        user.set_password(self.validated_data['password'])
-        user.save()
+    def create(self, validated_data):
+        user = CustomUser.objects.create_user(**validated_data)
         return user
+    

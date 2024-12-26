@@ -3,7 +3,7 @@ from rest_framework.permissions import BasePermission
 class IsAdmin(BasePermission):
     """Allow access only to Admin users."""
     def has_permission(self, request, view):
-        return request.user.groups.filter(name='Admin').exists()
+        return request.user.role == 'admin'
 
 class IsOwner(BasePermission):
     """Allow access only to the owner of the object."""

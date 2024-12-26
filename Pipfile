@@ -7,6 +7,7 @@ name = "pypi"
 django = {extras = ["bcrypt"], version = "*"}
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
+mysqlclient = "*"
 
 [dev-packages]
 

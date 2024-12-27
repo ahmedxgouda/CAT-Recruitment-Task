@@ -131,7 +131,7 @@ The Users endpoint supports pagination to limit the number of items returned in 
                 "email": "example@example.com",
                 "role": "client"
             },
-            <!-- More items -->
+            "More items..."
         ]
     }
     ```

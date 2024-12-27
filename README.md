@@ -36,11 +36,12 @@ This API provides endpoints for user management and authentication. It includes 
   - **Register a new user**
     - **Request Message Parmeters:**
 
-        | Parameter | Type   | Description          |
-        |-----------|--------|----------------------|
-        | username  | string | The user's username  |
-        | email     | string | The user's email     |
-        | password  | string | The user's password  |
+        | Parameter | Type   | Description                              |
+        |-----------|--------|------------------------------------------|
+        | username  | string | The user's username                      |
+        | email     | string | The user's email                         |
+        | password  | string | The user's password                      |
+        | role      | string | The user's role  (Default: 'client')     |
 
     - **Response Message Structure:**
 

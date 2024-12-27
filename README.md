@@ -10,6 +10,7 @@
   - [📊Pagination](#pagination)
   - [⏳Throttling](#throttling)
 - [Problem Solving](#problem-solving)
+- [SQL Challenges](#sql-challenges)
 
 ## 📚 API Documentation
 
@@ -165,3 +166,34 @@ If the rate limit is exceeded, the API will return a `429 Too Many Requests` sta
 | detail    | string | Message indicating the throttle limit and retry time |
 
 ## Problem Solving
+
+- **The challenge is solved using Python.**
+
+```python
+def isValid(self, s: str) -> bool:
+  st = []
+  brackets = {'}': '{', ']': '[', ')': '('}
+  for c in s:
+      if c in ['{', '[', '(']:
+          st.append(c)
+      else:
+          if len(st) == 0:
+              return False
+          last_bracket = st.pop()
+          # Using the dictionary to get the corresponding opening bracket
+          if last_bracket != brackets[c]:
+              return False
+  # If the stack is not empty, there are unmatched brackets
+  return len(st) == 0
+```
+
+## SQL Challenges
+
+```sql
+SELECT p.project_name, COUNT(e.employee_id) AS employee_count
+FROM Employee e
+JOIN Project p
+ON p.project_id = e.project_id
+GROUP BY p.project_name
+ORDER BY p.project_name
+```
